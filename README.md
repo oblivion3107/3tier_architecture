@@ -5,7 +5,7 @@ The StudentDetails web application provides a platform for managing student info
 # Architecture
 The web application follows a typical three-tier architecture:
 
-Frontend: Utilizes JSP (JavaServer Pages), HTML, CSS, and JavaScript for the user interface.
+Frontend: Utilizes JSP (JavaServer Pages), HTML, CSS, and JavaScript for the user interface.;
 Backend: Implements Java servlets to handle HTTP requests and interact with the database.
 Database: Uses MySQL as the backend database management system to store student details.
 
