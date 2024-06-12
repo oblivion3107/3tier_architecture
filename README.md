@@ -9,6 +9,8 @@ The web application follows a typical three-tier architecture:
 2. Backend: Implements Java servlets to handle HTTP requests and interact with the database.
 3. Database: Uses MySQL as the backend database management system to store student details.
 
+** For the servers AWS Linux is used. **
+
 # Build Instructions
 
 Steps to Install Apache Tomcat:
