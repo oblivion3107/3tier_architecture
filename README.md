@@ -149,7 +149,7 @@ CREATE TABLE student_details ( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(4
 ```
 Insert data into the created tables: 
 ```
-INSERT INTO login (id, name, phone number, aadharNumber, father_name)
+INSERT INTO student_details (id, name, phone number, aadharNumber, father_name)
 VALUES (give required values as mentioned in the table)
         (give required values as mentioned in the table);
 ```
