@@ -164,3 +164,7 @@ Replace mysql_server_ip with the ip of the mysql  server and the username and pa
 11. Move the StudentDetails.war file to  ROOT.war: `mv StudentDetails.war ROOT.war`
 12. Use  the following command to start the tomcat service `/usr/local/tomcat9/bin/start.sh`
 13. Check  the the service is runnning: http://tomcat_server_ip:8080 
+
+# Conclusion
+
+The web application functionality is supposed to verify and display the student details that are given in the database. If the given details are not matched with the data in the database, an error message will be displayed.
