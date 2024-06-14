@@ -1,177 +1,166 @@
-# 3tier_architecture
-# Overview
-The StudentDetails web application provides a platform for managing student information. It allows users to validate student roll numbers and retrieve detailed information about students from a MySQL database.
+# StudentDetails Web Application
 
-# Architecture
-The web application follows a typical three-tier architecture:
+## Project Overview
+StudentDetails is a Java web application designed to retrieve and display student information based on their roll number. The application is built using Java Servlets, JSP, and MySQL database, packaged and deployed using Apache Maven and Apache Tomcat.
 
-1. Frontend: Utilizes JSP (JavaServer Pages), HTML, CSS, and JavaScript for the user interface.
-2. Backend: Implements Java servlets to handle HTTP requests and interact with the database.
-3. Database: Uses MySQL as the backend database management system to store student details.
+## System Requirements:
+1. Java Development Kit (JDK) 17
+2. Apache Tomcat 9 or later
+3. MySQL Server 5.7 or later
+4. Apache Maven 3.8.4 or later
+5. AWS Linux on all the servers
 
-** For the servers AWS Linux is used. **
+## Installation Guide
 
-# Installation
+### Java JDK Installation
 
-## Requirements:
-* Java Development Kit (JDK)
-* Apache Tomcat (Servlet container)
-* MySQL Server
-## Setup Instructions:
-* Build the code files using the maven tool by specifiyinng the goals "clean" "install".
-* Install JDK *17 and Apache Tomcat on your system.
-* Configure Apache Tomcat and deploy the WAR file of the StudentDetails web application.
-* Install MySQL Server and create a database named "Logindetails".
-* Import the database schema provided in the project to create the necessary tables.
-* Configure database connection settings in web.xml and Java code.
-# Configuration
-## Database Connection:
-* JDBC URL: jdbc:mysql://<ip_address of the server>:3306/Logindetails
-* Username: User given for  the database.
-* Password: Password for the user.
-* User for the database should have privileges
-## Usage
-1. Access the web application using the URL provided by the servlet container.
-2. Enter a valid student roll number and submit to validate.
-3. View detailed student information if the roll number is valid.
-# Code Structure
-The codebase follows a standard Maven project structure:
+Update your system package index: `sudo yum update -y`
 
-* src/main/java: Contains Java source code, including servlets.
-* src/main/webapp: Contains web resources (JSP files, CSS, JavaScript).
-* pom.xml: Maven project configuration file.
-# Database Schema
-The database schema consists of the following tables:
+Install JDK 17: `sudo yum install java-17* -y`
 
-student_details: Stores student information, including ID, name, phone number, Aadhar number, and father's name.
-# Dependencies
-* Servlet API (provided)
-* MySQL Connector/J (version 8.0.33)
+Verify installation: `java -version`
 
-  # Build Instructions
+### Tomcat Installation
 
-Steps to Install Apache Tomcat:
-Update System Packages:
-```
-sudo yum update -y
-```
-Install Java:
-```
-sudo yum install java-17* -y
-```
-Download Tomcat:
-```
-wget https://downloads.apache.org/tomcat/tomcat-10/v10.1.5/bin/apache-tomcat-10.1.5.tar.gz
-```
-(Replace the URL with the latest version as needed)
+Download Tomcat 9: `wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.89/bin/apache-tomcat-9.0.89.tar.gz`
 
-Extract Tomcat:
-```
-tar -xvf apache-tomcat-10.1.5.tar.gz
-```
-Move Tomcat to /usr/local:
-```
-sudo mv apache-tomcat-10.1.5 /usr/local/tomcat
-```
-Start Tomcat:
-```
-/usr/local/tomcat/bin/startup.sh
-```
-Verify Installation:
+Extract the downloaded file: `tar -xvzf apache-tomcat-9.0.89.tar.gz`
 
-Open your browser and visit: http://your-server-ip:8080
+Move to the desired installation directory: `sudo mv apache-tomcat-9.0.89 /usr/local/tomcat9`
 
-## Steps to Install MySQL 5.7:
+Start Tomcat: `/usr/local/tomcat9/bin/startup.sh`
 
-Update System Packages:
-```
-sudo yum update -y
-```
-Add MySQL 5.7 Repository:
-```
-wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
-```
-Add key
+Verify by accessing: http://your-server-ip:8080 in a web browser.
+
+### Maven Installation:
+
+Download Maven: `sudo yum install maven -y`
+
+Verify Installation: `mvn --version` 
+
+### Git Innstallation:
+
+Download  git: `sudo yum install git -y` 
+
+### MySQL Installation:
+
+Connect to your EC2 instance using SSH.
+
+Update the package repository: `sudo yum update`
+
+Install MySQL server: 
 ```
 sudo rpm --import https://repo.mysql.com/RPM-GPG-KEY-mysql-2022
-```
-Install MySQL 5.7 Server:
-```
+wget http://dev.mysql.com/get/mysql57-community-release-el7-8.noarch.rpm
 sudo yum localinstall -y mysql57-community-release-el7-8.noarch.rpm
-sudo dnf install mysql-community-server -y
+sudo yum install -y mysql-community-server
 ```
-Start MySQL Service:
-```
-sudo systemctl enable mysqld
-sudo systemctl start mysqld
-```
-Get Temporary Root Password:
+Start the MySQL service and enable it to start on boot: `sudo systemctl enable mysqld` 
+`sudo systemctl enable mysqld`
 
-Retrieve the temporary root password generated during installation:
-```
-sudo grep 'temporary password' /var/log/mysqld.log
-```
+## Configuration
 
-Follow the prompts to change the root password and apply other security settings.
-Login to MySQL:
+### MySQL Configuration:
 
-Log in to MySQL with the new root password:
-```
-mysql -u root -p
-```
-Change the root password:
-```
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Your_Password';
-```
-# The followinng are the steps for creating a user for the database usage on a server:
- User creation
- ```
-CREATE USER 'user_name'@'tomcat_server_ip_' IDENTIFIED BY 'your_password';
-```
-Grant Privileges to the User:
-Grant necessary privileges to the user for the specific database. For example, to grant all privileges on the YourDatabaseName database:
-```
-GRANT ALL PRIVILEGES ON YourDatabaseName.* TO 'username'@'ip_address';
-```
-Replace YourDatabaseName, username, and ip_address with the appropriate values.
-Flush Privileges:
-After granting privileges, flush the MySQL privileges to apply the changes:
-```
-FLUSH PRIVILEGES;
-```
+Retrieve the root password: `sudo grep 'temporary password' /var/log/mysqld.log`
+
+Log in to MYSQL: `mysql -u root -p`
+
+Change the root password: `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'MyNewPass1!';`
+
 Create a new database for your application: 
 ```
 CREATE DATABASE Logindetails; USE Logindetails;
 ```
 Create tables: 
 ```
-CREATE TABLE student_details ( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(45) NOT NULL, phone number VARCHAR(45) NOT NULL,  aadharNumber VARCHAR(45) NOT NULL,  father_name VARCHAR(45) NOT NULL); 
+CREATE TABLE student_details ( id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(45) NOT NULL, `phone number` VARCHAR(45) NOT NULL,  `aadharNumber` VARCHAR(45) NOT NULL,  `father_name` VARCHAR(45) NOT NULL);
 ```
 Insert data into the created tables: 
 ```
-INSERT INTO student_details (id, name, phone number, aadharNumber, father_name)
-VALUES (give required values as mentioned in the table)
-        (give required values as mentioned in the table);
+INSERT INTO student_details (id, name, `phone number`, `aadharNumber`, `father_name`) 
+VALUES (give required values as mentioned in the table);
 ```
+For example,
+INSERT INTO student_details (id, name, `phone number`, `aadharNumber`, `father_name`) VALUES (2, 'ditch', 12456689, 1249830012, 'doe');
 
-# Procedure
+User Setup:
 
-1. After building the code using maven, a WAR file will  be generated.
-2. Stop the tomcat service if it is in running state.
-3. Move this WAR file into the webapps directory in the tomcat file.
-4. Rename the WAR file as ROOT.war
-5. Restart the tomcat services.
+Grant Privileges to the User:
 
-Operations to be performed in MySQL
-
-2. Grant Privileges to the User:
-Grant necessary privileges to the user for the specific database. For example, to grant all privileges on the YourDatabaseName database:
+Create a new MySQL user and grant appropriate privileges on the database:  
 ```
-GRANT ALL PRIVILEGES ON YourDatabaseName.* TO 'username'@'ip_address';
+CREATE USER 'db_user'@'tomcat_public_ip_address' IDENTIFIED BY 'Password';
 ```
-Replace YourDatabaseName, username, and ip_address with the appropriate values.
-3.Flush Privileges:
-After granting privileges, flush the MySQL privileges to apply the changes:
+Replace db_user, tomcat_public_ip_address and password with appropriate values.
+
+Grant necessary privileges to the user for the specific database. For example, to grant all privileges on the YourDatabaseName database
+```
+GRANT ALL PRIVILEGES ON Logindetails.* TO 'username'@'ip_address';
+```
+Replace username, and ip_address with the appropriate values.
+
+Flush Privileges:
+After granting privileges, flush the MySQL privileges to apply the changes
 ```
 FLUSH PRIVILEGES;
 ```
+# Project Structure
+Here is a typical layout of the Maven-based project:
+
+- StudentDetails/
+- ├── src/
+- │......├── main
+- │......│......├── java
+- │......│......│   └── com
+- │......│......│       └── jsp
+- │......│......│           ├── StudentServlet.java
+- │......│......├── resources
+- │......│......├── webapp
+- │......│................├── WEB-INF
+- │......│................│........├── web.xml
+- │......│................├── index.jsp
+- │......│................├── studentDetails.jsp
+- ├── pom.xml
+
+## Key Files
+1. StudentServlet.java: Handles HTTP requests and interacts with the database.
+2. index.jsp: Initial page where the user inputs the roll number.
+3. studentDetails.jsp: Displays the retrieved student details.
+4. web.xml: Deployment descriptor that maps the servlet.
+
+## Application Flow:
+1. User navigates to the web application.
+2. User submits the roll number through index.jsp.
+3. The StudentServlet processes the request.
+4. The servlet queries the database for student details.
+5. Data is forwarded to studentDetails.jsp.
+6. The JSP displays the student's information.
+
+## Procedure
+
+1. Take two ec2 instannces with aws linux.
+2. Two seperate groups having access to 22 port for ssh, 8080 port for tomcat server, and 3306 port for mysql database server.
+3. Dedicate one server for tomcat application and other server for mysql database.
+4. On tomcat server install Java 17, tomcat 9, git and maven. Installation steps  are mentioned in installation guide above.
+5. On mysql server install mysql 5.7 by followinng thee steps mentioned above.
+6. After installing all the requirements on the instances follow the build steps to  build and deploy the application.
+
+## Build Procedure
+1. On tomcat server, using git, clone the repository in to /home/ec2-user/ directory.
+ ```
+git clone 'repo_link'
+```
+2. studentDetails.jsp and validateRollNumber.jsp file have to be modified at the jdbc connection line. Following are the steps: `cd /home/ec2-user/3tier_architecture/StudentDetails/src/main/webapp/`
+3. In studentDetails.jsp and validateRollNumber.jsp following is the line to  be edited: 'Connection con = DriverManager.getConnection("jdbc:mysql://mysql_server_ip:3306/Logindetails", "username", "password");' 
+Replace mysql_server_ip with the ip of the mysql  server and the username and password has to be changed to the credentials given in the database server with priviliges.
+4. After the changes go to the directory where pom.xml file  is located: `cd home/ec2-user/3tier_architecture/StudentDetails/`
+5. Use the maven build  goals to build the project: `mvn clean package`
+6. A war file will be generated in the path `cd home/ec2-user/3tier_architecture/StudentDetails/target/`
+7. Move the war file to the tomcat directory: `mv home/ec2-user/3tier_architecture/StudentDetails/target/StudentDetails.war /usr/local/tomcat9/webapps`
+8. Change the directory to  the tomcat location: `cd usr/local/tomcat9/webapps`
+** Make sure the tomcat service is stopped `/usr/local/tomcat9/bin/shutdown.sh` **
+10. Remove the existing ROOT.war and ROOT file from the directory: `sudo rm -rf ROOT.war ROOT`
+11. Move the StudentDetails.war file to  ROOT.war: `mv StudentDetails.war ROOT.war`
+12. Use  the following command to start the tomcat service `/usr/local/tomcat9/bin/start.sh`
+13. Check  the the service is runnning: http://tomcat_server_ip:8080 
