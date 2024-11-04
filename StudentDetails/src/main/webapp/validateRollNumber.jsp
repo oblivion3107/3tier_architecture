@@ -27,7 +27,7 @@
         // JDBC code to validate the roll number
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://3.101.37.102:3306/Logindetails", "phill", "Jhonathan@1");
+            Connection con = DriverManager.getConnection("jdbc:mysql://184.169.218.244:3306/Logindetails", "phill", "Admin@1");
             PreparedStatement ps = con.prepareStatement("SELECT * FROM student_details WHERE id=?");
             ps.setString(1, rollNumber);
             ResultSet rs = ps.executeQuery();
